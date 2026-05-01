@@ -1,0 +1,2025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADHD Brain — Your Personal Knowledge Graph for a Beautifully Wired Mind</title>
+  <meta name="description" content="ADHD Brain applies structured knowledge graphs to help you map your thoughts, trace triggers, find coping strategies, and connect with support — all in one place.">
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.7;
+      color: #2d2d2d;
+      background: #fefcf9;
+    }
+    a { color: #6366f1; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    img { max-width: 100%; }
+
+    /* ===== NAV ===== */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(254, 252, 249, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #ede9e3;
+      padding: 0.8rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-brand {
+      font-size: 1.3rem; font-weight: 700;
+      background: linear-gradient(135deg, #6366f1, #a855f7);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .nav-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .nav-links a {
+      font-size: 0.9rem; color: #555; font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: #6366f1; text-decoration: none; }
+
+    /* ===== SECTIONS ===== */
+    section { padding: 4rem 2rem; max-width: 1100px; margin: 0 auto; }
+
+    /* ===== HERO ===== */
+    .hero {
+      text-align: center;
+      padding: 5rem 2rem 4rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: #f0eeff;
+      color: #6366f1;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 0.35rem 1rem;
+      border-radius: 99px;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-size: 2.8rem;
+      line-height: 1.2;
+      font-weight: 800;
+      color: #1a1a2e;
+      margin-bottom: 1.2rem;
+    }
+    .hero h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, #6366f1, #a855f7);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      font-size: 1.15rem;
+      color: #555;
+      max-width: 680px;
+      margin: 0 auto 2rem;
+    }
+
+    /* Stats row */
+    .stats-row {
+      display: flex; justify-content: center; gap: 3rem;
+      margin: 2.5rem 0;
+      flex-wrap: wrap;
+    }
+    .stat { text-align: center; }
+    .stat-number {
+      font-size: 2rem; font-weight: 800;
+      background: linear-gradient(135deg, #6366f1, #a855f7);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .stat-label { font-size: 0.85rem; color: #777; margin-top: 0.2rem; }
+
+    /* ===== SECTION HEADERS ===== */
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .section-header .tag {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #6366f1;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.6rem;
+    }
+    .section-header h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin-bottom: 0.8rem;
+    }
+    .section-header p {
+      font-size: 1.05rem;
+      color: #666;
+      max-width: 650px;
+      margin: 0 auto;
+    }
+
+    /* ===== COMPARISON (RAG vs CKG → Chaos vs Graph) ===== */
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+    .compare-card {
+      padding: 2rem;
+      border-radius: 16px;
+      border: 1px solid #ede9e3;
+    }
+    .compare-card.problem { background: #fff5f5; border-color: #fecaca; }
+    .compare-card.solution { background: #f0fdf4; border-color: #bbf7d0; }
+    .compare-card h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .compare-card.problem h3 { color: #dc2626; }
+    .compare-card.solution h3 { color: #16a34a; }
+    .compare-card ul { list-style: none; }
+    .compare-card ul li {
+      padding: 0.4rem 0;
+      font-size: 0.95rem;
+      color: #444;
+    }
+    .compare-card.problem li::before { content: "✗ "; color: #dc2626; font-weight: 700; }
+    .compare-card.solution li::before { content: "✓ "; color: #16a34a; font-weight: 700; }
+
+    /* ===== FEATURE CARDS ===== */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .card {
+      background: #fff;
+      border: 1px solid #ede9e3;
+      border-radius: 16px;
+      padding: 2rem;
+      transition: box-shadow 0.25s, transform 0.25s;
+    }
+    .card:hover {
+      box-shadow: 0 8px 30px rgba(99,102,241,0.1);
+      transform: translateY(-2px);
+    }
+    .card-icon {
+      font-size: 2rem;
+      margin-bottom: 0.8rem;
+    }
+    .card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin-bottom: 0.5rem;
+    }
+    .card p {
+      font-size: 0.95rem;
+      color: #555;
+    }
+    .card .card-stat {
+      display: inline-block;
+      margin-top: 0.8rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #6366f1;
+      background: #f0eeff;
+      padding: 0.25rem 0.75rem;
+      border-radius: 99px;
+    }
+
+    /* ===== GRAPH DEMO ===== */
+    .graph-demo {
+      background: #1a1a2e;
+      border-radius: 16px;
+      padding: 2.5rem;
+      margin: 2.5rem 0;
+      color: #e0e0e0;
+      overflow-x: auto;
+    }
+    .graph-demo h3 {
+      color: #a5b4fc;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+    .graph-demo pre {
+      font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+      font-size: 0.9rem;
+      line-height: 1.8;
+      color: #c4b5fd;
+      white-space: pre-wrap;
+    }
+    .graph-demo .comment { color: #6b7280; }
+    .graph-demo .function { color: #67e8f9; }
+    .graph-demo .string { color: #86efac; }
+    .graph-demo .arrow { color: #fbbf24; }
+    .graph-demo .result { color: #f9a8d4; }
+
+    /* ===== BENCHMARK TABLE ===== */
+    .benchmark-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0;
+      font-size: 0.92rem;
+    }
+    .benchmark-table th, .benchmark-table td {
+      padding: 0.8rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid #ede9e3;
+    }
+    .benchmark-table th {
+      font-weight: 600;
+      color: #555;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .benchmark-table td:first-child { font-weight: 600; color: #1a1a2e; }
+    .benchmark-table tr:hover { background: #f9f7f4; }
+    .highlight-cell { color: #16a34a; font-weight: 700; }
+
+    /* ===== COPING TECHNIQUES ===== */
+    .technique-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .technique {
+      background: linear-gradient(135deg, #fefcf9, #f0eeff);
+      border: 1px solid #e0ddf5;
+      border-radius: 16px;
+      padding: 2rem;
+    }
+    .technique h4 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin-bottom: 0.4rem;
+    }
+    .technique .upstream {
+      font-size: 0.82rem;
+      color: #6366f1;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+    }
+    .technique p {
+      font-size: 0.92rem;
+      color: #555;
+    }
+
+    /* ===== RESOURCES ===== */
+    .resource-category {
+      margin-bottom: 2.5rem;
+    }
+    .resource-category h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid #e0ddf5;
+    }
+    .resource-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1rem;
+    }
+    .resource-item {
+      background: #fff;
+      border: 1px solid #ede9e3;
+      border-radius: 12px;
+      padding: 1.2rem 1.5rem;
+      transition: box-shadow 0.2s;
+    }
+    .resource-item:hover { box-shadow: 0 4px 15px rgba(0,0,0,0.06); }
+    .resource-item .r-title {
+      font-weight: 700;
+      color: #1a1a2e;
+      font-size: 0.95rem;
+    }
+    .resource-item .r-type {
+      font-size: 0.78rem;
+      color: #6366f1;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .resource-item .r-desc {
+      font-size: 0.88rem;
+      color: #666;
+      margin-top: 0.3rem;
+    }
+
+    /* ===== SUPPORT / COMMUNITY ===== */
+    .community-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .community-card {
+      background: #fff;
+      border: 1px solid #ede9e3;
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+    }
+    .community-card .cc-icon { font-size: 2.5rem; margin-bottom: 0.8rem; }
+    .community-card h4 { font-size: 1.05rem; font-weight: 700; color: #1a1a2e; margin-bottom: 0.4rem; }
+    .community-card p { font-size: 0.9rem; color: #555; }
+    .community-card .cc-link {
+      display: inline-block;
+      margin-top: 1rem;
+      font-weight: 600;
+      color: #6366f1;
+      font-size: 0.9rem;
+    }
+
+    /* ===== QUOTE ===== */
+    blockquote {
+      background: #f9f7f4;
+      border-left: 4px solid #a855f7;
+      padding: 1.5rem 2rem;
+      border-radius: 0 12px 12px 0;
+      margin: 2rem 0;
+      font-style: italic;
+      color: #444;
+      font-size: 1.05rem;
+    }
+
+    /* ===== CTA ===== */
+    .cta-section {
+      text-align: center;
+      background: linear-gradient(135deg, #1a1a2e, #2d1b69);
+      color: #fff;
+      border-radius: 20px;
+      padding: 3.5rem 2rem;
+      margin: 3rem auto;
+      max-width: 1100px;
+    }
+    .cta-section h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+    }
+    .cta-section p {
+      color: #c4b5fd;
+      font-size: 1.05rem;
+      margin-bottom: 1.5rem;
+    }
+    .cta-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #6366f1, #a855f7);
+      color: #fff;
+      padding: 0.8rem 2rem;
+      border-radius: 99px;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(99,102,241,0.4);
+      text-decoration: none;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.85rem;
+      color: #999;
+      border-top: 1px solid #ede9e3;
+    }
+
+    /* ===== INTERACTIVE GRAPH ===== */
+    .interactive-graph-wrap {
+      background: #1a1a2e;
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin: 2rem 0;
+      position: relative;
+    }
+    .interactive-graph-wrap canvas {
+      width: 100%;
+      height: 500px;
+      display: block;
+      border-radius: 12px;
+    }
+    .graph-controls {
+      display: flex; gap: 0.8rem; flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+    .graph-btn {
+      background: rgba(99,102,241,0.2);
+      color: #a5b4fc;
+      border: 1px solid rgba(99,102,241,0.4);
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+    .graph-btn:hover, .graph-btn.active {
+      background: rgba(99,102,241,0.5);
+      color: #fff;
+    }
+    .graph-legend {
+      display: flex; gap: 1.2rem; flex-wrap: wrap;
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      color: #999;
+    }
+    .graph-legend span::before {
+      content: '';
+      display: inline-block;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      margin-right: 5px;
+      vertical-align: middle;
+    }
+    .legend-trigger::before { background: #ef4444; }
+    .legend-symptom::before { background: #f59e0b; }
+    .legend-coping::before { background: #22c55e; }
+    .legend-outcome::before { background: #6366f1; }
+
+    /* ===== STORIES / TESTIMONIALS ===== */
+    .stories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+    .story-card {
+      background: #fff;
+      border: 1px solid #ede9e3;
+      border-radius: 16px;
+      padding: 2rem;
+      position: relative;
+    }
+    .story-card::before {
+      content: '\201C';
+      font-size: 4rem;
+      color: #e0ddf5;
+      position: absolute;
+      top: 0.5rem;
+      left: 1.2rem;
+      line-height: 1;
+      font-family: Georgia, serif;
+    }
+    .story-text {
+      font-size: 0.95rem;
+      color: #444;
+      line-height: 1.7;
+      margin-bottom: 1rem;
+      padding-top: 1.5rem;
+    }
+    .story-attribution {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #6366f1;
+    }
+    .story-context {
+      font-size: 0.78rem;
+      color: #999;
+      margin-top: 0.2rem;
+    }
+
+    /* ===== MEDICATION GUIDE ===== */
+    .med-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .med-card {
+      background: #fff;
+      border: 1px solid #ede9e3;
+      border-radius: 16px;
+      padding: 2rem;
+    }
+    .med-card h4 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin-bottom: 0.3rem;
+    }
+    .med-card .med-class {
+      font-size: 0.78rem;
+      color: #6366f1;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.8rem;
+    }
+    .med-card p {
+      font-size: 0.92rem;
+      color: #555;
+    }
+    .med-card .med-note {
+      margin-top: 0.8rem;
+      padding: 0.6rem 0.8rem;
+      background: #fef3c7;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      color: #92400e;
+    }
+
+    /* ===== WOMEN & GIRLS ===== */
+    .women-highlight {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+    .women-stat-card {
+      background: linear-gradient(135deg, #fdf2f8, #fce7f3);
+      border: 1px solid #f9a8d4;
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+    }
+    .women-stat-card .ws-number {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #be185d;
+    }
+    .women-stat-card .ws-label {
+      font-size: 0.9rem;
+      color: #9d174d;
+      margin-top: 0.3rem;
+    }
+    .women-stat-card .ws-source {
+      font-size: 0.75rem;
+      color: #c084fc;
+      margin-top: 0.5rem;
+    }
+
+    /* ===== RELATIONSHIP ===== */
+    .rel-pattern {
+      background: #fff;
+      border: 1px solid #ede9e3;
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    .rel-pattern h4 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin-bottom: 0.3rem;
+    }
+    .rel-pattern .rel-graph {
+      font-size: 0.85rem;
+      color: #6366f1;
+      font-weight: 600;
+      font-family: 'Cascadia Code', 'Fira Code', monospace;
+      margin-bottom: 0.8rem;
+    }
+    .rel-pattern p { font-size: 0.92rem; color: #555; }
+    .rel-columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    .rel-col h5 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin-bottom: 0.5rem;
+    }
+    .rel-col p { font-size: 0.88rem; color: #555; }
+
+    /* ===== NUTRITION ===== */
+    .nutrition-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .nutrition-card {
+      background: #fff;
+      border: 1px solid #ede9e3;
+      border-radius: 16px;
+      padding: 2rem;
+    }
+    .nutrition-card h4 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin-bottom: 0.3rem;
+    }
+    .nutrition-card .n-evidence {
+      font-size: 0.78rem;
+      color: #16a34a;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+    }
+    .nutrition-card p { font-size: 0.92rem; color: #555; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2rem; }
+      .compare-grid { grid-template-columns: 1fr; }
+      .stats-row { gap: 1.5rem; }
+      nav { flex-direction: column; gap: 0.5rem; }
+      .nav-links { justify-content: center; }
+      section { padding: 3rem 1.2rem; }
+      .women-highlight { grid-template-columns: 1fr; }
+      .rel-columns { grid-template-columns: 1fr; }
+      .nav-links { gap: 0.6rem; font-size: 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<nav>
+  <div class="nav-brand">ADHD Brain</div>
+  <div class="nav-links">
+    <a href="#graph">Personal Graph</a>
+    <a href="#interactive">Live Demo</a>
+    <a href="#coping">Coping</a>
+    <a href="#mindfulness">Mindfulness</a>
+    <a href="#nutrition">Nutrition</a>
+    <a href="#medication">Medication</a>
+    <a href="#women">Women &amp; Girls</a>
+    <a href="#relationships">Relationships</a>
+    <a href="#stories">Stories</a>
+    <a href="#resources">Resources</a>
+    <a href="#community">Community</a>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <div class="hero-badge">Graph-Powered ADHD Support</div>
+  <h1>Your thoughts have structure.<br><em>Let's make it visible.</em></h1>
+  <p>
+    ADHD Brain applies Compact Knowledge Graph (CKG) thinking to help you map your thoughts,
+    trace triggers, find coping strategies, and connect with support.
+    Instead of scattered notes and forgotten systems, you get <strong>a structured map of how your mind actually works</strong>.
+  </p>
+
+  <div class="stats-row">
+    <div class="stat">
+      <div class="stat-number">6.1M</div>
+      <div class="stat-label">U.S. children diagnosed with ADHD</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">4.4%</div>
+      <div class="stat-label">of adults worldwide affected</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">3x</div>
+      <div class="stat-label">higher rate of task abandonment</div>
+    </div>
+  </div>
+  <p style="font-size: 0.82rem; color: #999; margin-top: -0.5rem;">
+    Sources: CDC (2022), World Federation of ADHD International Consensus Statement (2021), Barkley (2015)
+  </p>
+</div>
+
+<!-- ===== THE PROBLEM vs. THE GRAPH ===== -->
+<section id="graph">
+  <div class="section-header">
+    <div class="tag">Personal Graph</div>
+    <h2>Your ADHD mind isn't broken. It's a graph that hasn't been mapped yet.</h2>
+    <p>
+      Just like GraphifyMD's CKG reveals hidden dependencies in codebases and clinical data,
+      a Personal Knowledge Graph reveals the hidden structure in how your ADHD brain connects thoughts,
+      triggers, tasks, and coping strategies.
+    </p>
+  </div>
+
+  <!-- Chaos vs. Graph comparison (mirrors RAG vs. CKG from GraphifyMD) -->
+  <div class="compare-grid">
+    <div class="compare-card problem">
+      <h3>Unstructured gives you chaos</h3>
+      <ul>
+        <li>Scattered sticky notes, 12 open apps, forgotten alarms</li>
+        <li>You start a task without knowing what it depends on</li>
+        <li>One missed deadline cascades — but you can't see the blast radius</li>
+        <li>"Why am I overwhelmed?" has no traceable answer</li>
+        <li>Coping strategies are buried in bookmarks you'll never revisit</li>
+      </ul>
+    </div>
+    <div class="compare-card solution">
+      <h3>A Personal Graph gives you structure</h3>
+      <ul>
+        <li>Every thought, trigger, and task is a node you can find</li>
+        <li>Dependencies are visible: "Before I can do X, I need Y"</li>
+        <li>Trace downstream: "If I skip meds today, these 5 things are affected"</li>
+        <li>"Why am I overwhelmed?" → trace upstream to the root trigger</li>
+        <li>Coping strategies are linked to the exact triggers they address</li>
+      </ul>
+    </div>
+  </div>
+
+  <blockquote>
+    "I used to think my brain was random. Turns out it has a dependency graph — I just couldn't see it.
+    Once I mapped my triggers to their downstream effects, I stopped blaming myself and started navigating."
+    <br><span style="font-style: normal; font-size: 0.85rem; color: #888;">— How graph thinking reframes ADHD</span>
+  </blockquote>
+
+  <!-- Graph demo (mirrors the code example from GraphifyMD) -->
+  <div class="graph-demo">
+    <h3>How a Personal ADHD Graph works — same concept as CKG</h3>
+<pre>
+<span class="comment"># Instead of querying a codebase, you query YOUR patterns</span>
+
+<span class="function">trace_upstream</span>(<span class="string">"afternoon_crash"</span>)
+<span class="arrow">→</span> <span class="result">Root triggers:</span>
+    <span class="result">Skipped breakfast</span>
+    <span class="result">Poor sleep (stayed up hyperfocusing)</span>
+    <span class="result">Missed morning medication</span>
+    <span class="result">No transition ritual between tasks</span>
+<span class="comment"># 4 upstream nodes. Now you know WHERE to intervene.</span>
+
+<span class="function">trace_downstream</span>(<span class="string">"skipped_medication"</span>)
+<span class="arrow">→</span> <span class="result">Affected nodes (blast radius):</span>
+    <span class="result">Focus duration drops 60%</span>
+    <span class="result">Emotional regulation weakened</span>
+    <span class="result">Task-switching cost doubles</span>
+    <span class="result">Evening anxiety spike</span>
+    <span class="result">Sleep quality degrades</span>
+    <span class="result">→ Next-day cycle repeats</span>
+<span class="comment"># Full blast radius BEFORE it happens.</span>
+
+<span class="function">find_path</span>(<span class="string">"rejection_sensitivity"</span>, <span class="string">"social_withdrawal"</span>)
+<span class="arrow">→</span> <span class="result">Path: rejection_sensitivity → rumination → energy_depletion → social_withdrawal</span>
+<span class="comment"># 3 hops. Each hop is a real, typed connection — not a guess.</span>
+</pre>
+  </div>
+
+  <!-- Graph application cards (mirrors "Who It's For" from GraphifyMD) -->
+  <div class="cards-grid">
+    <div class="card">
+      <div class="card-icon">🧠</div>
+      <h3>Map Your Thought Patterns</h3>
+      <p>
+        Your ADHD brain makes connections other brains don't — that's a superpower when you can see them.
+        A personal graph captures how your ideas, triggers, and tasks connect, making the invisible visible.
+      </p>
+      <div class="card-stat">Like CKG's 274-token clarity for your own mind</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔗</div>
+      <h3>Trace Your Trigger Chains</h3>
+      <p>
+        Just like CKG traces <code>trace_upstream("Prior Authorization")</code> in clinical data,
+        you can trace <code>trace_upstream("meltdown")</code> to find the actual root cause —
+        not the surface-level symptom.
+      </p>
+      <div class="card-stat">Every trigger has upstream dependencies</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">💥</div>
+      <h3>See Blast Radius Before It Hits</h3>
+      <p>
+        GraphifyMD shows engineers the 23 modules affected by one code change.
+        Your personal graph shows the 5 life areas affected by one skipped routine.
+        Awareness before crisis, not after.
+      </p>
+      <div class="card-stat">Downstream impact = prevention</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">🧩</div>
+      <h3>Link Coping to Triggers</h3>
+      <p>
+        Stop Googling "ADHD tips" in a crisis. Your graph connects each trigger node
+        to proven coping strategy nodes — so the right technique is already mapped when you need it.
+      </p>
+      <div class="card-stat">Structure, not scattered bookmarks</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">📊</div>
+      <h3>Task Dependency Mapping</h3>
+      <p>
+        ADHD makes "just do it" impossible when you can't see prerequisites.
+        A task graph shows: "To file taxes, first I need → receipts → which need → opening that email →
+        which needs → 10 minutes of activation energy."
+      </p>
+      <div class="card-stat">Break paralysis with visible paths</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔄</div>
+      <h3>Spot Feedback Loops</h3>
+      <p>
+        Poor sleep → low focus → incomplete tasks → shame → anxiety → poor sleep.
+        When you can see the cycle as a graph, you can pick the weakest link and break it intentionally.
+      </p>
+      <div class="card-stat">Cycles become intervention points</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== INTERACTIVE GRAPH DEMO ===== -->
+<section id="interactive">
+  <div class="section-header">
+    <div class="tag">Interactive Demo</div>
+    <h2>Explore an ADHD trigger graph — live</h2>
+    <p>
+      Click any node to trace its connections. See how triggers cascade downstream and
+      how coping strategies connect upstream. This is what your personal graph could look like.
+    </p>
+  </div>
+
+  <div class="interactive-graph-wrap">
+    <div class="graph-controls">
+      <button class="graph-btn active" onclick="showScenario('morning')">Morning Routine</button>
+      <button class="graph-btn" onclick="showScenario('rsd')">Rejection Sensitivity</button>
+      <button class="graph-btn" onclick="showScenario('hyperfocus')">Hyperfocus Spiral</button>
+      <button class="graph-btn" onclick="showScenario('work')">Work Deadline</button>
+    </div>
+    <canvas id="graphCanvas"></canvas>
+    <div class="graph-legend">
+      <span class="legend-trigger">Trigger</span>
+      <span class="legend-symptom">Symptom / Effect</span>
+      <span class="legend-coping">Coping Strategy</span>
+      <span class="legend-outcome">Outcome</span>
+    </div>
+    <p id="graphInfo" style="color: #a5b4fc; font-size: 0.9rem; margin-top: 1rem; min-height: 1.4em;"></p>
+  </div>
+</section>
+
+<!-- ===== COPING TECHNIQUES ===== -->
+<section id="coping">
+  <div class="section-header">
+    <div class="tag">Coping Techniques</div>
+    <h2>Structured strategies, mapped to real triggers</h2>
+    <p>
+      Each technique below is presented with its <strong>upstream trigger</strong> — the graph node it connects to.
+      This isn't a random tips list. It's a dependency-mapped coping toolkit.
+    </p>
+  </div>
+
+  <div class="technique-grid">
+    <div class="technique">
+      <h4>Body Doubling</h4>
+      <div class="upstream">upstream: task_initiation_failure → activation_energy_deficit</div>
+      <p>
+        Work alongside someone (in person or virtually) to borrow external accountability.
+        The presence of another person provides the activation energy your brain struggles to generate alone.
+        Evidence suggests this reduces task-start latency significantly for ADHD individuals.
+      </p>
+    </div>
+    <div class="technique">
+      <h4>Time Blocking with Buffer Zones</h4>
+      <div class="upstream">upstream: time_blindness → schedule_collapse</div>
+      <p>
+        Schedule tasks in blocks with 15-minute buffers between them. ADHD brains underestimate task duration
+        (time blindness). Buffers absorb the overflow so one late task doesn't cascade into the entire day.
+        Think of it as adding slack to your dependency graph.
+      </p>
+    </div>
+    <div class="technique">
+      <h4>Externalize Working Memory</h4>
+      <div class="upstream">upstream: working_memory_overload → thought_loss</div>
+      <p>
+        Use a whiteboard, voice recorder, or app to immediately capture every thought.
+        ADHD working memory is like RAM that randomly clears — externalization is your disk write.
+        The goal: no thought lives only in your head.
+      </p>
+    </div>
+    <div class="technique">
+      <h4>Transition Rituals</h4>
+      <div class="upstream">upstream: hyperfocus_lock → task_switching_failure</div>
+      <p>
+        Create a 2-minute ritual between tasks: stand up, drink water, name the next task aloud.
+        Hyperfocus makes your brain resist switching. A physical ritual breaks the neurological "lock"
+        and signals your brain that a context switch is happening.
+      </p>
+    </div>
+    <div class="technique">
+      <h4>Rejection Sensitivity First Aid</h4>
+      <div class="upstream">upstream: rejection_perceived → emotional_flooding</div>
+      <p>
+        When you feel the sting: pause, label it ("This is RSD, not reality"),
+        and delay any response by 20 minutes. Rejection Sensitive Dysphoria (RSD) is common in ADHD
+        — the emotional flood feels urgent but almost always passes. The graph shows:
+        RSD → rumination → withdrawal → isolation. Break it at step one.
+      </p>
+    </div>
+    <div class="technique">
+      <h4>Interest-Based Task Pairing</h4>
+      <div class="upstream">upstream: low_dopamine → motivation_deficit</div>
+      <p>
+        Pair a boring task with something stimulating: do admin work while listening to a podcast,
+        fold laundry during a show. ADHD motivation runs on interest, not importance.
+        Pairing hacks your dopamine system by stacking a high-interest node onto a low-interest one.
+      </p>
+    </div>
+    <div class="technique">
+      <h4>The "Good Enough" Rule</h4>
+      <div class="upstream">upstream: perfectionism → task_paralysis</div>
+      <p>
+        Set an explicit "done" threshold before starting: "This email is done when it has 3 sentences."
+        ADHD perfectionism isn't about high standards — it's about not knowing when to stop.
+        A pre-set threshold is a graph termination condition.
+      </p>
+    </div>
+    <div class="technique">
+      <h4>Medication Timing Awareness</h4>
+      <div class="upstream">upstream: medication_schedule → focus_window</div>
+      <p>
+        Map your medication's peak effect window and schedule your hardest tasks there.
+        If stimulant medication peaks at 10am–1pm, that's your high-performance graph node.
+        Schedule creative/demanding work inside it, routine work outside it.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MINDFULNESS ===== -->
+<section id="mindfulness">
+  <div class="section-header">
+    <div class="tag">Mindfulness</div>
+    <h2>ADHD-friendly mindfulness (not "just sit still")</h2>
+    <p>
+      Traditional meditation tells you to clear your mind. ADHD brains can't — and that's okay.
+      These techniques work <em>with</em> your wiring, not against it.
+    </p>
+  </div>
+
+  <div class="cards-grid">
+    <div class="card">
+      <div class="card-icon">🚶</div>
+      <h3>Walking Meditation</h3>
+      <p>
+        Move and observe. Count steps in groups of 10. Your body stays stimulated (meeting ADHD's movement need)
+        while your mind practices focused attention. Research by Zylowska et al. (2008) showed mindfulness
+        adapted for ADHD improved attention and executive function.
+      </p>
+      <div class="card-stat">Ref: Zylowska, 2008 — UCLA ADHD Mindfulness Study</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">🎵</div>
+      <h3>Sound Anchoring</h3>
+      <p>
+        Pick one sound in your environment and follow it. The hum of a fan, distant traffic, birdsong.
+        When your mind wanders (it will — that's ADHD), gently return to the sound.
+        No judgment. The return IS the practice.
+      </p>
+      <div class="card-stat">Works because ADHD brains anchor to stimuli</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">✋</div>
+      <h3>5-4-3-2-1 Grounding</h3>
+      <p>
+        Name: 5 things you see, 4 you touch, 3 you hear, 2 you smell, 1 you taste.
+        This sensory scan pulls an ADHD brain out of rumination by flooding it with present-moment input.
+        Especially effective during RSD or anxiety spirals.
+      </p>
+      <div class="card-stat">Immediate re-grounding for emotional flooding</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">🧘</div>
+      <h3>Micro-Meditations (60 Seconds)</h3>
+      <p>
+        One minute. Three deep breaths. Name your current emotion. That's it.
+        ADHD brains resist long meditation because the reward is too distant.
+        60-second micro-sessions stack over time and build the same neural pathways without the resistance.
+      </p>
+      <div class="card-stat">Ref: Mitchell et al., 2017 — Brief Mindfulness for ADHD</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">📝</div>
+      <h3>Thought Labeling</h3>
+      <p>
+        When a thought pops up, label its type: "planning," "worrying," "remembering," "creating."
+        Don't judge or follow it — just tag it like a graph node. This builds metacognitive awareness,
+        which is the ADHD brain's weakest and most improvable skill.
+      </p>
+      <div class="card-stat">Graph your thoughts in real time</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">💨</div>
+      <h3>Box Breathing with Fidget</h3>
+      <p>
+        Breathe in 4 counts, hold 4, out 4, hold 4 — while using a fidget toy.
+        The fidget satisfies your brain's stimulation need so the breathing exercise
+        doesn't feel like torture. Both hands and lungs engaged = full-body regulation.
+      </p>
+      <div class="card-stat">Combines somatic + respiratory regulation</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== RESOURCES ===== -->
+<section id="resources">
+  <div class="section-header">
+    <div class="tag">Resources &amp; References</div>
+    <h2>Evidence-based, verifiable references</h2>
+    <p>
+      Every resource below is a real, citable source. No filler.
+      Organized by type so you can traverse to exactly what you need.
+    </p>
+  </div>
+
+  <div class="resource-category">
+    <h3>Books</h3>
+    <div class="resource-list">
+      <div class="resource-item">
+        <div class="r-type">Book</div>
+        <div class="r-title">Driven to Distraction — Edward Hallowell, MD & John Ratey, MD</div>
+        <div class="r-desc">The foundational ADHD book. Revised 2011 edition covers adult ADHD, relationships, and workplace strategies. Widely recommended by clinicians.</div>
+      </div>
+      <div class="resource-item">
+        <div class="r-type">Book</div>
+        <div class="r-title">Taking Charge of Adult ADHD — Russell Barkley, PhD</div>
+        <div class="r-desc">Science-based, practical guide from the leading ADHD researcher. Covers executive function, self-regulation, and evidence-based treatment approaches.</div>
+      </div>
+      <div class="resource-item">
+        <div class="r-type">Book</div>
+        <div class="r-title">Your Brain's Not Broken — Tamara Rosier, PhD</div>
+        <div class="r-desc">Focuses on the emotional side of ADHD — shame, frustration, motivation. Offers the "Thought-Mood Cycle" framework for understanding emotional patterns.</div>
+      </div>
+      <div class="resource-item">
+        <div class="r-type">Book</div>
+        <div class="r-title">The ADHD Effect on Marriage — Melissa Orlov</div>
+        <div class="r-desc">Practical guide for couples navigating ADHD's impact on relationships. Covers communication patterns, resentment cycles, and rebuilding connection.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="resource-category">
+    <h3>Research &amp; Clinical References</h3>
+    <div class="resource-list">
+      <div class="resource-item">
+        <div class="r-type">Consensus Paper</div>
+        <div class="r-title">World Federation of ADHD International Consensus Statement (2021)</div>
+        <div class="r-desc">Comprehensive review by 80+ researchers. Covers prevalence (5.9% children, 2.5–4.4% adults), genetics, neurobiology, and treatment evidence. Published in Neuroscience & Biobehavioral Reviews.</div>
+      </div>
+      <div class="resource-item">
+        <div class="r-type">Research</div>
+        <div class="r-title">Zylowska et al. (2008) — Mindfulness Meditation Training in Adults and Adolescents With ADHD</div>
+        <div class="r-desc">UCLA study showing 8-week adapted mindfulness program improved attention, cognitive inhibition, and anxiety/depression symptoms in ADHD participants. Published in Journal of Attention Disorders.</div>
+      </div>
+      <div class="resource-item">
+        <div class="r-type">Research</div>
+        <div class="r-title">Barkley, R.A. (2015) — Attention-Deficit Hyperactivity Disorder: A Handbook for Diagnosis and Treatment (4th ed.)</div>
+        <div class="r-desc">The definitive clinical reference. Covers executive function theory, time blindness, emotional dysregulation, and the 30% developmental delay model.</div>
+      </div>
+      <div class="resource-item">
+        <div class="r-type">Research</div>
+        <div class="r-title">Dodson, W. (2022) — Rejection Sensitive Dysphoria in ADHD</div>
+        <div class="r-desc">Clinical description of RSD as a common but under-recognized feature of ADHD. Published through ADDitude clinical advisory board.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="resource-category">
+    <h3>Apps &amp; Tools</h3>
+    <div class="resource-list">
+      <div class="resource-item">
+        <div class="r-type">App</div>
+        <div class="r-title">Focusmate — Virtual body doubling</div>
+        <div class="r-desc">Pairs you with a stranger for 25/50/75-minute work sessions via video. Provides the external accountability ADHD brains need for task initiation.</div>
+      </div>
+      <div class="resource-item">
+        <div class="r-type">App</div>
+        <div class="r-title">Tiimo — Visual daily planner</div>
+        <div class="r-desc">Designed for neurodivergent users. Visual schedule with color coding, timers, and simple interface. Reduces executive function load of planning.</div>
+      </div>
+      <div class="resource-item">
+        <div class="r-type">App</div>
+        <div class="r-title">Obsidian — Personal knowledge graph</div>
+        <div class="r-desc">Build your own personal CKG. Link notes, visualize connections in a graph view, and see how your thoughts connect. The closest tool to building a personal ADHD dependency graph.</div>
+      </div>
+      <div class="resource-item">
+        <div class="r-type">App</div>
+        <div class="r-title">Structured — Visual time blocking</div>
+        <div class="r-desc">Timeline-based daily planner that shows your day as a visual flow. Helps combat time blindness by making time tangible.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="resource-category">
+    <h3>Podcasts &amp; Media</h3>
+    <div class="resource-list">
+      <div class="resource-item">
+        <div class="r-type">Podcast</div>
+        <div class="r-title">ADHD Experts Podcast — ADDitude Magazine</div>
+        <div class="r-desc">Weekly episodes with clinicians and researchers. Covers treatment updates, executive function strategies, and practical life management.</div>
+      </div>
+      <div class="resource-item">
+        <div class="r-type">Podcast</div>
+        <div class="r-title">How to ADHD — Jessica McCabe (YouTube)</div>
+        <div class="r-desc">Accessible, well-researched video series. Combines personal experience with clinical guidance. Over 1M subscribers. Great for newly diagnosed adults.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== COMMUNITY & SUPPORT ===== -->
+<section id="community">
+  <div class="section-header">
+    <div class="tag">Community &amp; Support</div>
+    <h2>You're not doing this alone</h2>
+    <p>
+      Connection is a node in your graph too. These communities and crisis resources are here when you need them.
+    </p>
+  </div>
+
+  <div class="community-grid">
+    <div class="community-card">
+      <div class="cc-icon">💬</div>
+      <h4>r/ADHD — Reddit Community</h4>
+      <p>1.8M+ members sharing daily experiences, strategies, wins, and struggles. One of the most active peer support communities online.</p>
+      <a href="https://www.reddit.com/r/ADHD/" class="cc-link" target="_blank" rel="noopener">Visit Community →</a>
+    </div>
+    <div class="community-card">
+      <div class="cc-icon">🏥</div>
+      <h4>CHADD — National Resource</h4>
+      <p>Children and Adults with ADHD. Offers local support groups, educational programs, and a professional directory. The leading U.S. ADHD nonprofit.</p>
+      <a href="https://chadd.org/" class="cc-link" target="_blank" rel="noopener">Visit CHADD →</a>
+    </div>
+    <div class="community-card">
+      <div class="cc-icon">🌍</div>
+      <h4>ADHD Foundation (UK)</h4>
+      <p>Neurodiversity charity offering training, support groups, and workplace guidance. Strong focus on ADHD as a difference, not a deficit.</p>
+      <a href="https://www.adhdfoundation.org.uk/" class="cc-link" target="_blank" rel="noopener">Visit Foundation →</a>
+    </div>
+    <div class="community-card">
+      <div class="cc-icon">📱</div>
+      <h4>ADDA — Attention Deficit Disorder Association</h4>
+      <p>Adult-focused ADHD organization. Runs virtual peer support groups, webinars, and an annual conference. Membership includes access to ADHD coaches.</p>
+      <a href="https://add.org/" class="cc-link" target="_blank" rel="noopener">Visit ADDA →</a>
+    </div>
+    <div class="community-card">
+      <div class="cc-icon">🧑‍💻</div>
+      <h4>Focusmate Community</h4>
+      <p>Beyond the app — an active community of people who use virtual co-working to stay accountable. Weekly challenges and a supportive Discord server.</p>
+      <a href="https://www.focusmate.com/" class="cc-link" target="_blank" rel="noopener">Visit Focusmate →</a>
+    </div>
+    <div class="community-card">
+      <div class="cc-icon">🆘</div>
+      <h4>Crisis Resources</h4>
+      <p>
+        <strong>988 Suicide & Crisis Lifeline:</strong> Call or text 988<br>
+        <strong>Crisis Text Line:</strong> Text HOME to 741741<br>
+        <strong>SAMHSA Helpline:</strong> 1-800-662-4357
+      </p>
+      <a href="https://988lifeline.org/" class="cc-link" target="_blank" rel="noopener">988 Lifeline →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== NUTRITION & EXERCISE ===== -->
+<section id="nutrition">
+  <div class="section-header">
+    <div class="tag">Nutrition &amp; Exercise</div>
+    <h2>What you eat and how you move changes how your brain works</h2>
+    <p>
+      These aren't vague wellness tips. Each recommendation below has research backing specifically
+      for ADHD — showing how nutrition and movement connect to focus, impulse control, and emotional regulation.
+    </p>
+  </div>
+
+  <div class="nutrition-grid">
+    <div class="nutrition-card">
+      <div class="card-icon">🏃</div>
+      <h4>Aerobic Exercise (30 min, 4x/week)</h4>
+      <div class="n-evidence">Evidence: Strong — Mehren et al. (2020), Frontiers in Psychiatry</div>
+      <p>
+        Aerobic exercise increases dopamine and norepinephrine — the same neurotransmitters targeted by ADHD medications.
+        A meta-analysis found that regular aerobic activity improved attention, executive function, and impulse control
+        in both children and adults with ADHD. The effect is strongest when exercise is consistent, not occasional.
+        Think of it as a daily "medication boost" node in your graph.
+      </p>
+    </div>
+    <div class="nutrition-card">
+      <div class="card-icon">🥚</div>
+      <h4>Protein at Breakfast</h4>
+      <div class="n-evidence">Evidence: Moderate — Wurtman & Wurtman, MIT amino acid research</div>
+      <p>
+        Protein provides tyrosine and phenylalanine — amino acid precursors to dopamine.
+        Starting the day with protein (eggs, Greek yogurt, nuts) stabilizes blood sugar and
+        provides raw materials for neurotransmitter production throughout the morning.
+        A carb-heavy breakfast → blood sugar spike → crash → afternoon focus collapse. The graph path is direct.
+      </p>
+    </div>
+    <div class="nutrition-card">
+      <div class="card-icon">🐟</div>
+      <h4>Omega-3 Fatty Acids</h4>
+      <div class="n-evidence">Evidence: Moderate — Chang et al. (2018), meta-analysis in Neuropsychopharmacology</div>
+      <p>
+        A meta-analysis of 16 randomized controlled trials found omega-3 supplementation
+        (particularly EPA at doses >500mg/day) showed small but significant improvements in ADHD symptoms,
+        especially inattention. Not a replacement for medication, but a supporting node.
+        Sources: fatty fish (salmon, sardines), walnuts, flaxseed, or supplements.
+      </p>
+    </div>
+    <div class="nutrition-card">
+      <div class="card-icon">🏋️</div>
+      <h4>Resistance Training</h4>
+      <div class="n-evidence">Evidence: Emerging — Vysniauske et al. (2020), J Attention Disorders</div>
+      <p>
+        Weight training and bodyweight exercises improve executive function through a different pathway than cardio.
+        The focus required during lifting acts as a mindfulness practice (you have to pay attention),
+        while the progressive overload structure gives ADHD brains clear, measurable goals — a built-in reward loop.
+      </p>
+    </div>
+    <div class="nutrition-card">
+      <div class="card-icon">🫐</div>
+      <h4>Blood Sugar Stability</h4>
+      <div class="n-evidence">Evidence: Moderate — Johnson et al., elimination diet studies</div>
+      <p>
+        ADHD brains are extra-sensitive to blood sugar fluctuations. Spikes and crashes amplify
+        inattention, irritability, and impulsivity. Eating smaller meals with protein + complex carbs + healthy fats
+        every 3–4 hours keeps the fuel line steady. The graph path: blood sugar crash → dopamine dip → focus collapse → frustration.
+      </p>
+    </div>
+    <div class="nutrition-card">
+      <div class="card-icon">💧</div>
+      <h4>Hydration</h4>
+      <div class="n-evidence">Evidence: General — mild dehydration impairs cognition across all populations</div>
+      <p>
+        Even mild dehydration (1–2% body weight loss) impairs working memory and attention in clinical studies.
+        ADHD brains are already running on reduced executive function bandwidth — dehydration taxes it further.
+        Simple intervention: keep water visible and accessible. If it's out of sight, an ADHD brain forgets it exists.
+      </p>
+    </div>
+  </div>
+
+  <blockquote>
+    "I thought exercise was just 'good for you' in a vague way. Then I learned it literally increases the same
+    neurotransmitters my Adderall targets. Now my morning run is a non-negotiable upstream node —
+    everything downstream depends on it."
+    <br><span style="font-style: normal; font-size: 0.85rem; color: #888;">— Graph-mapped exercise insight</span>
+  </blockquote>
+</section>
+
+<!-- ===== MEDICATION GUIDE ===== -->
+<section id="medication">
+  <div class="section-header">
+    <div class="tag">Medication Guide</div>
+    <h2>Understanding your options — so you can talk to your doctor informed</h2>
+    <p>
+      This is educational information, not medical advice. Medication decisions should always be made
+      with a qualified healthcare provider. The goal here: give you the vocabulary and framework
+      so those conversations are productive.
+    </p>
+  </div>
+
+  <div class="med-grid">
+    <div class="med-card">
+      <h4>Methylphenidate (Ritalin, Concerta)</h4>
+      <div class="med-class">Stimulant — First-line treatment</div>
+      <p>
+        Blocks reuptake of dopamine and norepinephrine, increasing their availability in the prefrontal cortex.
+        Available in short-acting (3–4 hrs), intermediate (6–8 hrs), and extended-release (10–12 hrs) formulations.
+        Most widely studied ADHD medication with decades of safety data.
+      </p>
+      <div class="med-note">Graph node: medication_schedule → focus_window. Map your peak effect hours.</div>
+    </div>
+    <div class="med-card">
+      <h4>Amphetamine-based (Adderall, Vyvanse)</h4>
+      <div class="med-class">Stimulant — First-line treatment</div>
+      <p>
+        Increases release of dopamine and norepinephrine (slightly different mechanism than methylphenidate).
+        Vyvanse (lisdexamfetamine) is a prodrug — inactive until metabolized, providing smoother onset and lower abuse potential.
+        Some individuals respond better to amphetamine-based than methylphenidate-based, and vice versa.
+      </p>
+      <div class="med-note">If one stimulant class doesn't work, the other often does. ~70% respond to the first; ~90% to one of the two.</div>
+    </div>
+    <div class="med-card">
+      <h4>Atomoxetine (Strattera)</h4>
+      <div class="med-class">Non-stimulant — Norepinephrine reuptake inhibitor</div>
+      <p>
+        Takes 4–6 weeks for full effect (unlike stimulants which work day one).
+        Provides 24-hour coverage without the peaks and valleys of stimulants.
+        Often chosen when stimulants cause anxiety, tics, or when there are substance abuse concerns.
+        Less effective for inattention than stimulants but better tolerated by some.
+      </p>
+      <div class="med-note">No "medication wearing off" crash — the graph node is active 24/7.</div>
+    </div>
+    <div class="med-card">
+      <h4>Guanfacine / Clonidine (Intuniv, Kapvay)</h4>
+      <div class="med-class">Non-stimulant — Alpha-2 agonist</div>
+      <p>
+        Originally blood pressure medications, now FDA-approved for ADHD.
+        Particularly helpful for hyperactivity, impulsivity, and emotional dysregulation.
+        Often used as an add-on to stimulants rather than standalone.
+        Guanfacine extended-release (Intuniv) is more commonly used for ADHD than clonidine.
+      </p>
+      <div class="med-note">Especially useful if RSD or emotional flooding is a major graph node for you.</div>
+    </div>
+    <div class="med-card">
+      <h4>Bupropion (Wellbutrin)</h4>
+      <div class="med-class">Off-label — Dopamine/norepinephrine reuptake inhibitor</div>
+      <p>
+        Not FDA-approved for ADHD but frequently prescribed off-label, especially when ADHD
+        co-occurs with depression. Acts on the same neurotransmitter systems as ADHD medications.
+        Weaker effect on ADHD symptoms than stimulants, but addresses comorbid depression simultaneously.
+      </p>
+      <div class="med-note">Consider when your graph has strong depression ↔ ADHD bidirectional edges.</div>
+    </div>
+    <div class="med-card">
+      <h4>Questions to Ask Your Doctor</h4>
+      <div class="med-class">Preparation — Make the appointment count</div>
+      <p>
+        1. "What class of medication are you recommending and why?"<br>
+        2. "What's the expected timeline to see effects?"<br>
+        3. "How will we know if the dose needs adjusting?"<br>
+        4. "What side effects should I watch for in the first 2 weeks?"<br>
+        5. "How does this interact with anything else I take?"<br>
+        6. "What does 'medication wearing off' look like, and how do we handle it?"
+      </p>
+      <div class="med-note">Write these down. ADHD working memory will blank them in the appointment.</div>
+    </div>
+  </div>
+
+  <p style="text-align: center; font-size: 0.85rem; color: #999; margin-top: 1.5rem;">
+    Sources: Faraone et al. (2015) — meta-analysis of ADHD medications, The Lancet Psychiatry; NICE Guidelines NG87 (2018);
+    Barkley (2015) — ADHD Handbook 4th ed. Always consult your prescribing physician.
+  </p>
+</section>
+
+<!-- ===== ADHD IN WOMEN & GIRLS ===== -->
+<section id="women">
+  <div class="section-header">
+    <div class="tag">ADHD in Women &amp; Girls</div>
+    <h2>The most underdiagnosed population in ADHD</h2>
+    <p>
+      ADHD was historically studied in hyperactive boys. Women and girls with ADHD are often missed entirely
+      because their presentation looks different — not less real, just less visible.
+    </p>
+  </div>
+
+  <div class="women-highlight">
+    <div class="women-stat-card">
+      <div class="ws-number">75%</div>
+      <div class="ws-label">of women with ADHD are undiagnosed or misdiagnosed</div>
+      <div class="ws-source">Source: Hinshaw et al. (2022), Journal of Clinical Child & Adolescent Psychology</div>
+    </div>
+    <div class="women-stat-card">
+      <div class="ws-number">36.6</div>
+      <div class="ws-label">Average age of diagnosis for women (vs. 7–12 for boys)</div>
+      <div class="ws-source">Source: ADDitude Magazine survey of 2,500+ women, 2020</div>
+    </div>
+    <div class="women-stat-card">
+      <div class="ws-number">2–3x</div>
+      <div class="ws-label">Higher rates of anxiety and depression in women with ADHD vs. men</div>
+      <div class="ws-source">Source: Ottosen et al. (2019), Journal of Attention Disorders</div>
+    </div>
+    <div class="women-stat-card">
+      <div class="ws-number">4x</div>
+      <div class="ws-label">More likely to be diagnosed with depression/anxiety first</div>
+      <div class="ws-source">Source: Quinn & Madhoo (2014), The Primary Care Companion for CNS Disorders</div>
+    </div>
+  </div>
+
+  <div class="cards-grid">
+    <div class="card">
+      <div class="card-icon">🎭</div>
+      <h3>Masking &amp; Compensating</h3>
+      <p>
+        Women with ADHD develop elaborate systems to appear "put together" — meticulous lists, excessive preparation,
+        people-pleasing. This masking costs enormous energy and often leads to burnout. The graph shows:
+        masking → energy depletion → breakdown → "she seemed fine until she wasn't."
+      </p>
+      <div class="card-stat">Ref: Hinshaw et al., 2022 — Berkeley Girls with ADHD Study</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">🌊</div>
+      <h3>Hormonal Interactions</h3>
+      <p>
+        Estrogen modulates dopamine activity. During menstruation, perimenopause, and postpartum,
+        estrogen drops — and ADHD symptoms intensify. Many women report their medication "stops working"
+        at certain cycle points. This is a real, biological graph edge, not imagined.
+      </p>
+      <div class="card-stat">Ref: Roberts et al. (2018), Psychoneuroendocrinology</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">💬</div>
+      <h3>Inattentive Presentation</h3>
+      <p>
+        Girls are more likely to present with inattentive-type ADHD (daydreaming, difficulty following through,
+        losing things) rather than hyperactive-impulsive type. Teachers and parents often miss it because
+        "she's quiet" doesn't match the stereotype. The node exists — it's just labeled differently.
+      </p>
+      <div class="card-stat">Ref: Biederman et al. (2002), American Journal of Psychiatry</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">😰</div>
+      <h3>Internalized Shame</h3>
+      <p>
+        Without a diagnosis, women internalize their struggles as personal failures: "I'm lazy," "I can't
+        keep up," "everyone else manages." This shame loop is often the most damaging downstream effect
+        of late diagnosis. The graph path: undiagnosed ADHD → repeated failure → internalized shame →
+        anxiety/depression → further masking → exhaustion.
+      </p>
+      <div class="card-stat">Breaking this cycle starts with naming it</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">🤰</div>
+      <h3>Pregnancy &amp; Postpartum</h3>
+      <p>
+        Many women discover their ADHD during or after pregnancy, when the structure of work is removed
+        and executive demands shift dramatically. Medication decisions during pregnancy require careful
+        risk-benefit analysis with a specialist. Postpartum hormone shifts can severely amplify symptoms.
+      </p>
+      <div class="card-stat">Discuss medication options with a perinatal psychiatrist</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔍</div>
+      <h3>Getting Assessed</h3>
+      <p>
+        Seek providers who understand ADHD in women specifically. Standard screening tools were
+        normed on male children and may miss your presentation. Ask for: comprehensive interview,
+        multiple rating scales, assessment of compensatory strategies, and screening for comorbid
+        anxiety/depression. A diagnosis is a graph edge that connects decades of "why" to an answer.
+      </p>
+      <div class="card-stat">CHADD provider directory: chadd.org/professional-directory</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== RELATIONSHIPS ===== -->
+<section id="relationships">
+  <div class="section-header">
+    <div class="tag">Relationships</div>
+    <h2>ADHD doesn't just affect you — it affects every connection in your graph</h2>
+    <p>
+      Relationships have dependency edges too. Understanding how ADHD patterns play out in partnerships,
+      friendships, parenting, and work relationships turns conflict into navigation.
+    </p>
+  </div>
+
+  <div class="rel-pattern">
+    <h4>The Parent-Child Dynamic in Partnerships</h4>
+    <div class="rel-graph">graph: forgotten_task → partner_picks_up_slack → resentment → nagging → shame → withdrawal → more_forgotten_tasks</div>
+    <p>
+      This is the most common ADHD relationship cycle, described by Melissa Orlov as the "parent-child dynamic."
+      The non-ADHD partner takes on more responsibility, begins to feel like a parent, builds resentment,
+      and starts criticizing — which triggers RSD in the ADHD partner, causing withdrawal and further disengagement.
+      It's a feedback loop, and both people feel trapped.
+    </p>
+    <div class="rel-columns" style="margin-top: 1.2rem;">
+      <div class="rel-col">
+        <h5>ADHD partner often feels:</h5>
+        <p>Criticized, controlled, shame, "nothing I do is good enough," defensive, like a child being scolded.</p>
+      </div>
+      <div class="rel-col">
+        <h5>Non-ADHD partner often feels:</h5>
+        <p>Exhausted, alone, unappreciated, like a parent, resentful, unable to rely on their partner.</p>
+      </div>
+    </div>
+    <p style="margin-top: 1rem; font-size: 0.9rem; color: #6366f1; font-weight: 600;">
+      Breaking the cycle: Both partners need to see the graph. It's not "you're lazy" or "you're controlling" — it's a system with identifiable edges that can be rewired.
+    </p>
+  </div>
+
+  <div class="cards-grid">
+    <div class="card">
+      <div class="card-icon">💑</div>
+      <h3>Romantic Relationships</h3>
+      <p>
+        ADHD hyperfocus in early dating creates intense connection — then "fades." It's not lost interest;
+        it's the brain's novelty-seeking system normalizing. Explaining this to your partner as a neurological
+        pattern (not a character flaw) changes everything. External systems (shared calendars, check-in rituals)
+        replace the need for willpower.
+      </p>
+      <div class="card-stat">Ref: Orlov — The ADHD Effect on Marriage</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">👨‍👩‍👧</div>
+      <h3>Parenting with ADHD</h3>
+      <p>
+        Parenting demands sustained executive function — the exact thing ADHD limits.
+        Morning routines, homework supervision, emotional co-regulation: each requires the cognitive resources
+        ADHD brains struggle to generate consistently. External scaffolding (visual schedules, timers, anchor routines)
+        isn't lazy parenting — it's smart systems design.
+      </p>
+      <div class="card-stat">Your child's routine is a graph you can optimize</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">🤝</div>
+      <h3>Friendships</h3>
+      <p>
+        ADHD friendship challenges: forgetting to reply, missing events, intense-then-absent patterns,
+        dominating conversations, interrupting. Most friends don't know it's ADHD — they just feel
+        deprioritized. Naming the pattern and creating systems (recurring calendar invites, text reminders)
+        preserves relationships that matter.
+      </p>
+      <div class="card-stat">Upstream: working_memory → forgotten_reply → friend_feels_ignored</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">💼</div>
+      <h3>Workplace Relationships</h3>
+      <p>
+        Missed deadlines, disorganized handoffs, blurting in meetings, difficulty with "boring" admin tasks
+        that affect colleagues downstream. Understanding your blast radius at work — which teammates depend
+        on your output — and building systems (shared trackers, brief daily syncs) turns a reputation problem
+        into a reliability system.
+      </p>
+      <div class="card-stat">Map your work dependency graph explicitly</div>
+    </div>
+  </div>
+
+  <blockquote>
+    "When my partner and I mapped our conflict patterns as a graph, we stopped blaming each other.
+    The cycle had 6 nodes, and we could both see we were stuck in it. We picked node 3 — 'expectation mismatch' —
+    and built a system there. It didn't fix everything, but it broke the loop."
+    <br><span style="font-style: normal; font-size: 0.85rem; color: #888;">— Couples graph mapping</span>
+  </blockquote>
+</section>
+
+<!-- ===== PERSONAL STORIES ===== -->
+<section id="stories">
+  <div class="section-header">
+    <div class="tag">Personal Stories</div>
+    <h2>Real voices, real patterns, real breakthroughs</h2>
+    <p>
+      These composited stories represent common ADHD experiences. Names are changed,
+      but the patterns are drawn from widely reported ADHD community themes.
+    </p>
+  </div>
+
+  <div class="stories-grid">
+    <div class="story-card">
+      <div class="story-text">
+        I was diagnosed at 38, after my daughter was diagnosed at 7. Sitting in her assessment, I kept thinking,
+        "Wait, that's me." Thirty years of 'Why can't you just try harder?' suddenly had an answer.
+        I cried in the parking lot — not from sadness, but from relief. Everything in my life suddenly had
+        a structural explanation instead of a character indictment.
+      </div>
+      <div class="story-attribution">Maya, 41 — Late-diagnosed adult</div>
+      <div class="story-context">Graph node: late_diagnosis → reframing_decades_of_shame → grief + relief</div>
+    </div>
+    <div class="story-card">
+      <div class="story-text">
+        My hyperfocus is my superpower and my curse. I once built an entire app in 14 hours straight —
+        forgot to eat, forgot a dinner with friends. The app was brilliant. The friendship almost ended.
+        I've learned that hyperfocus isn't "being productive" — it's my brain hijacking my priorities.
+        Now I set timers. Not to limit the work, but to check: "Is anything downstream burning?"
+      </div>
+      <div class="story-attribution">Dev, 29 — Software engineer</div>
+      <div class="story-context">Graph node: hyperfocus → relationship_neglect → trace_downstream() before deep work</div>
+    </div>
+    <div class="story-card">
+      <div class="story-text">
+        I was the "gifted kid" who couldn't hand in homework. 4.0 on tests, 0.0 on assignments.
+        Every report card: "Has so much potential if she'd just apply herself."
+        That phrase haunted me for 20 years. Nobody thought to check for ADHD because I was smart.
+        Intelligence masks ADHD — until it doesn't. My burnout at 32 was the system finally crashing.
+      </div>
+      <div class="story-attribution">Priya, 34 — Twice-exceptional (gifted + ADHD)</div>
+      <div class="story-context">Graph node: high_IQ_masking → delayed_diagnosis → compensatory_burnout</div>
+    </div>
+    <div class="story-card">
+      <div class="story-text">
+        The worst part of ADHD for me isn't the focus — it's the emotions. I feel everything at 200%.
+        A mildly critical email can ruin my entire day. My therapist taught me to label it:
+        "This is Rejection Sensitive Dysphoria. The feeling is real, but the interpretation is distorted."
+        That one sentence gave me a 20-minute buffer between feeling and reacting. It changed my career.
+      </div>
+      <div class="story-attribution">James, 37 — Manager, diagnosed at 30</div>
+      <div class="story-context">Graph node: RSD → emotional_flooding → labeling_intervention → response_delay</div>
+    </div>
+    <div class="story-card">
+      <div class="story-text">
+        My ADHD got dramatically worse around my period. I thought I was going crazy — my medication
+        just stopped working for a week every month. Turns out estrogen drops reduce dopamine activity.
+        My psychiatrist adjusted my dose cyclically. Nobody had ever mentioned this connection.
+        It took me 3 years to find a doctor who understood.
+      </div>
+      <div class="story-attribution">Sara, 28 — Hormonal ADHD fluctuation</div>
+      <div class="story-context">Graph node: hormonal_cycle → estrogen_drop → dopamine_reduction → medication_efficacy_change</div>
+    </div>
+    <div class="story-card">
+      <div class="story-text">
+        I became a parent and my ADHD went from "quirky" to "crisis." The executive function demands
+        of keeping a tiny human alive while managing a household while working — I couldn't fake it anymore.
+        The structure I built for one life didn't scale to three. Getting diagnosed wasn't admitting defeat.
+        It was finally building the right scaffolding for the load I was carrying.
+      </div>
+      <div class="story-attribution">Alex, 35 — Parent, diagnosed postpartum</div>
+      <div class="story-context">Graph node: increased_executive_demand → system_collapse → diagnosis → rebuilding</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BENCHMARK / WHY GRAPHS WORK ===== -->
+<section>
+  <div class="section-header">
+    <div class="tag">Why Graphs Work for ADHD</div>
+    <h2>Structured thinking vs. unstructured chaos — the evidence</h2>
+    <p>
+      This table adapts GraphifyMD's CKG benchmark to show why graph-based thinking
+      outperforms unstructured approaches for ADHD management.
+    </p>
+  </div>
+
+  <table class="benchmark-table">
+    <thead>
+      <tr>
+        <th>Dimension</th>
+        <th>Unstructured (Lists, Notes, Memory)</th>
+        <th>Graph-Based (Personal CKG)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Organization method</td>
+        <td>Linear lists, scattered notes</td>
+        <td class="highlight-cell">Connected nodes with typed relationships</td>
+      </tr>
+      <tr>
+        <td>Finding a coping strategy</td>
+        <td>Google it during a crisis</td>
+        <td class="highlight-cell">Pre-linked to your specific trigger</td>
+      </tr>
+      <tr>
+        <td>Understanding "why am I overwhelmed?"</td>
+        <td>Guess, spiral, self-blame</td>
+        <td class="highlight-cell">trace_upstream() → root cause in 3 hops</td>
+      </tr>
+      <tr>
+        <td>Seeing impact of a skipped routine</td>
+        <td>Realize it 3 days later</td>
+        <td class="highlight-cell">trace_downstream() → full blast radius instantly</td>
+      </tr>
+      <tr>
+        <td>Task prioritization</td>
+        <td>"Everything feels equally urgent"</td>
+        <td class="highlight-cell">Dependency graph shows actual prerequisites</td>
+      </tr>
+      <tr>
+        <td>Breaking feedback loops</td>
+        <td>Stuck in the cycle, can't see it</td>
+        <td class="highlight-cell">Cycle visible → pick weakest link to break</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p style="text-align: center; font-size: 0.85rem; color: #888; margin-top: 1rem;">
+    Adapted from the GraphifyMD CKG benchmark framework (<a href="https://github.com/Yarmoluk/ckg-benchmark" target="_blank" rel="noopener">github.com/Yarmoluk/ckg-benchmark</a>).
+    Co-authored with Dan McCreary (former Head of AI, TigerGraph).
+  </p>
+</section>
+
+<!-- ===== CTA ===== -->
+<div class="cta-section">
+  <h2>Your brain has structure. Start mapping it.</h2>
+  <p>
+    Try building your personal ADHD knowledge graph with Obsidian, a whiteboard, or even pen and paper.<br>
+    Start with one trigger. Trace upstream. Trace downstream. See what connects.
+  </p>
+  <a href="#graph" class="cta-btn">Start with Your First Node →</a>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <p>
+    ADHD Brain — Applying graph-based thinking to neurodivergent minds.<br>
+    Inspired by <a href="https://graphifymd.com" target="_blank" rel="noopener">GraphifyMD</a>'s Compact Knowledge Graph architecture
+    and <a href="https://www.tigergraph.com" target="_blank" rel="noopener">TigerGraph</a>'s parallel graph database design.<br>
+    <span style="margin-top: 0.5rem; display: inline-block;">
+      This site is for educational purposes. It is not medical advice.
+      Always consult a qualified healthcare professional for ADHD diagnosis and treatment.
+    </span>
+  </p>
+</footer>
+
+<script>
+// ===== INTERACTIVE GRAPH DEMO =====
+const canvas = document.getElementById('graphCanvas');
+const ctx = canvas.getContext('2d');
+const info = document.getElementById('graphInfo');
+let nodes = [], edges = [], selectedNode = null, hoveredNode = null;
+let animFrame;
+
+const scenarios = {
+  morning: {
+    nodes: [
+      { id: 'alarm', label: 'Alarm Goes Off', type: 'trigger', x: 0.08, y: 0.3 },
+      { id: 'snooze', label: 'Hit Snooze (x3)', type: 'symptom', x: 0.22, y: 0.15 },
+      { id: 'rush', label: 'Morning Rush', type: 'symptom', x: 0.38, y: 0.12 },
+      { id: 'skip_meds', label: 'Skip Medication', type: 'trigger', x: 0.38, y: 0.45 },
+      { id: 'skip_breakfast', label: 'Skip Breakfast', type: 'trigger', x: 0.22, y: 0.55 },
+      { id: 'focus_drop', label: 'Focus Drops 60%', type: 'symptom', x: 0.55, y: 0.3 },
+      { id: 'blood_sugar', label: 'Blood Sugar Crash', type: 'symptom', x: 0.55, y: 0.6 },
+      { id: 'afternoon_crash', label: 'Afternoon Crash', type: 'symptom', x: 0.72, y: 0.45 },
+      { id: 'shame', label: 'Shame Spiral', type: 'symptom', x: 0.88, y: 0.3 },
+      { id: 'poor_sleep', label: 'Poor Sleep', type: 'symptom', x: 0.88, y: 0.65 },
+      // Coping nodes
+      { id: 'sleep_routine', label: 'Sleep Routine', type: 'coping', x: 0.08, y: 0.75 },
+      { id: 'prep_night', label: 'Prep Night Before', type: 'coping', x: 0.22, y: 0.85 },
+      { id: 'protein_brkfst', label: 'Protein Breakfast', type: 'coping', x: 0.42, y: 0.82 },
+      { id: 'med_alarm', label: 'Medication Alarm', type: 'coping', x: 0.55, y: 0.85 },
+      { id: 'good_morning', label: 'Productive Day', type: 'outcome', x: 0.78, y: 0.82 },
+    ],
+    edges: [
+      ['alarm', 'snooze'], ['snooze', 'rush'], ['rush', 'skip_meds'], ['rush', 'skip_breakfast'],
+      ['skip_meds', 'focus_drop'], ['skip_breakfast', 'blood_sugar'], ['focus_drop', 'afternoon_crash'],
+      ['blood_sugar', 'afternoon_crash'], ['afternoon_crash', 'shame'], ['afternoon_crash', 'poor_sleep'],
+      ['poor_sleep', 'alarm'],
+      // Coping edges
+      ['sleep_routine', 'alarm'], ['prep_night', 'rush'], ['protein_brkfst', 'blood_sugar'],
+      ['med_alarm', 'skip_meds'], ['sleep_routine', 'good_morning'], ['prep_night', 'good_morning'],
+      ['protein_brkfst', 'good_morning'], ['med_alarm', 'good_morning'],
+    ],
+    info: 'Morning Routine: See how one snoozed alarm cascades through your entire day — and where coping strategies intervene.'
+  },
+  rsd: {
+    nodes: [
+      { id: 'event', label: 'Perceived Criticism', type: 'trigger', x: 0.1, y: 0.4 },
+      { id: 'rsd', label: 'RSD Activated', type: 'symptom', x: 0.28, y: 0.25 },
+      { id: 'flood', label: 'Emotional Flooding', type: 'symptom', x: 0.45, y: 0.15 },
+      { id: 'ruminate', label: 'Rumination Loop', type: 'symptom', x: 0.62, y: 0.25 },
+      { id: 'energy', label: 'Energy Depleted', type: 'symptom', x: 0.78, y: 0.15 },
+      { id: 'withdraw', label: 'Social Withdrawal', type: 'symptom', x: 0.9, y: 0.35 },
+      { id: 'snap', label: 'Snap at Partner', type: 'symptom', x: 0.45, y: 0.45 },
+      { id: 'conflict', label: 'Relationship Conflict', type: 'symptom', x: 0.62, y: 0.55 },
+      { id: 'more_shame', label: 'Shame About Reaction', type: 'symptom', x: 0.78, y: 0.45 },
+      // Coping
+      { id: 'label_it', label: 'Label: "This is RSD"', type: 'coping', x: 0.15, y: 0.75 },
+      { id: 'delay20', label: '20-Min Response Delay', type: 'coping', x: 0.35, y: 0.8 },
+      { id: 'grounding', label: '5-4-3-2-1 Grounding', type: 'coping', x: 0.55, y: 0.85 },
+      { id: 'talk_partner', label: 'Signal to Partner', type: 'coping', x: 0.75, y: 0.78 },
+      { id: 'regulated', label: 'Regulated Response', type: 'outcome', x: 0.9, y: 0.72 },
+    ],
+    edges: [
+      ['event', 'rsd'], ['rsd', 'flood'], ['flood', 'ruminate'], ['ruminate', 'energy'],
+      ['energy', 'withdraw'], ['flood', 'snap'], ['snap', 'conflict'], ['conflict', 'more_shame'],
+      ['more_shame', 'withdraw'],
+      ['label_it', 'rsd'], ['delay20', 'flood'], ['grounding', 'ruminate'],
+      ['talk_partner', 'snap'], ['label_it', 'regulated'], ['delay20', 'regulated'],
+      ['grounding', 'regulated'], ['talk_partner', 'regulated'],
+    ],
+    info: 'Rejection Sensitivity: One perceived criticism triggers a 9-node cascade. Coping strategies break the chain at different points.'
+  },
+  hyperfocus: {
+    nodes: [
+      { id: 'interest', label: 'New Interest Spark', type: 'trigger', x: 0.1, y: 0.35 },
+      { id: 'dopamine', label: 'Dopamine Surge', type: 'symptom', x: 0.25, y: 0.2 },
+      { id: 'lock_in', label: 'Hyperfocus Lock', type: 'symptom', x: 0.42, y: 0.15 },
+      { id: 'time_blind', label: 'Time Disappears', type: 'symptom', x: 0.58, y: 0.2 },
+      { id: 'skip_meal', label: 'Missed Meals', type: 'symptom', x: 0.58, y: 0.45 },
+      { id: 'miss_appt', label: 'Missed Appointment', type: 'symptom', x: 0.72, y: 0.15 },
+      { id: 'exhaustion', label: 'Crash & Exhaustion', type: 'symptom', x: 0.85, y: 0.3 },
+      { id: 'guilt', label: 'Guilt About Neglect', type: 'symptom', x: 0.85, y: 0.55 },
+      { id: 'friend_hurt', label: 'Friend Feels Ignored', type: 'symptom', x: 0.72, y: 0.55 },
+      // Coping
+      { id: 'timer', label: 'Set 90-Min Timer', type: 'coping', x: 0.12, y: 0.75 },
+      { id: 'transition', label: 'Transition Ritual', type: 'coping', x: 0.32, y: 0.82 },
+      { id: 'body_check', label: 'Body Needs Check', type: 'coping', x: 0.52, y: 0.78 },
+      { id: 'calendar_block', label: 'Hard Calendar Blocks', type: 'coping', x: 0.72, y: 0.82 },
+      { id: 'balanced', label: 'Balanced Deep Work', type: 'outcome', x: 0.9, y: 0.78 },
+    ],
+    edges: [
+      ['interest', 'dopamine'], ['dopamine', 'lock_in'], ['lock_in', 'time_blind'],
+      ['time_blind', 'skip_meal'], ['time_blind', 'miss_appt'], ['skip_meal', 'exhaustion'],
+      ['miss_appt', 'friend_hurt'], ['exhaustion', 'guilt'], ['friend_hurt', 'guilt'],
+      ['timer', 'lock_in'], ['transition', 'time_blind'], ['body_check', 'skip_meal'],
+      ['calendar_block', 'miss_appt'],
+      ['timer', 'balanced'], ['transition', 'balanced'], ['body_check', 'balanced'], ['calendar_block', 'balanced'],
+    ],
+    info: 'Hyperfocus Spiral: That 14-hour coding session felt amazing — until you see the blast radius. Timers and rituals protect without killing the flow.'
+  },
+  work: {
+    nodes: [
+      { id: 'deadline', label: 'Deadline Approaching', type: 'trigger', x: 0.1, y: 0.35 },
+      { id: 'overwhelm', label: 'Overwhelm Paralysis', type: 'symptom', x: 0.28, y: 0.18 },
+      { id: 'avoidance', label: 'Task Avoidance', type: 'symptom', x: 0.45, y: 0.12 },
+      { id: 'doom_scroll', label: 'Doom Scrolling', type: 'symptom', x: 0.45, y: 0.4 },
+      { id: 'guilt_grow', label: 'Growing Guilt', type: 'symptom', x: 0.62, y: 0.25 },
+      { id: 'panic', label: 'Panic at Last Minute', type: 'symptom', x: 0.78, y: 0.15 },
+      { id: 'rush_job', label: 'Rushed, Low Quality', type: 'symptom', x: 0.9, y: 0.3 },
+      { id: 'boss_upset', label: 'Boss Disappointed', type: 'symptom', x: 0.9, y: 0.55 },
+      { id: 'self_doubt', label: '"I\'m Not Cut Out For This"', type: 'symptom', x: 0.72, y: 0.55 },
+      // Coping
+      { id: 'break_down', label: 'Break Into 15-Min Tasks', type: 'coping', x: 0.12, y: 0.75 },
+      { id: 'body_double', label: 'Body Doubling Session', type: 'coping', x: 0.32, y: 0.85 },
+      { id: 'good_enough', label: '"Good Enough" Threshold', type: 'coping', x: 0.52, y: 0.78 },
+      { id: 'reward_pair', label: 'Pair With Interest', type: 'coping', x: 0.72, y: 0.85 },
+      { id: 'delivered', label: 'Delivered On Time', type: 'outcome', x: 0.9, y: 0.78 },
+    ],
+    edges: [
+      ['deadline', 'overwhelm'], ['overwhelm', 'avoidance'], ['avoidance', 'doom_scroll'],
+      ['avoidance', 'guilt_grow'], ['guilt_grow', 'panic'], ['doom_scroll', 'guilt_grow'],
+      ['panic', 'rush_job'], ['rush_job', 'boss_upset'], ['boss_upset', 'self_doubt'],
+      ['self_doubt', 'overwhelm'],
+      ['break_down', 'overwhelm'], ['body_double', 'avoidance'], ['good_enough', 'panic'],
+      ['reward_pair', 'doom_scroll'],
+      ['break_down', 'delivered'], ['body_double', 'delivered'], ['good_enough', 'delivered'], ['reward_pair', 'delivered'],
+    ],
+    info: 'Work Deadline: The overwhelm → avoidance → panic → rush cycle. Every green node is an intervention point that breaks the loop.'
+  }
+};
+
+const colors = {
+  trigger: '#ef4444',
+  symptom: '#f59e0b',
+  coping: '#22c55e',
+  outcome: '#6366f1'
+};
+
+function resizeCanvas() {
+  const rect = canvas.parentElement.getBoundingClientRect();
+  canvas.width = rect.width - 48;
+  canvas.height = 500;
+}
+
+function getNodePos(node) {
+  return { x: node.x * canvas.width, y: node.y * canvas.height };
+}
+
+function drawEdge(from, to, highlight) {
+  const p1 = getNodePos(from);
+  const p2 = getNodePos(to);
+  const isCoping = from.type === 'coping';
+
+  ctx.beginPath();
+  ctx.moveTo(p1.x, p1.y);
+
+  // Curved edges
+  const mx = (p1.x + p2.x) / 2;
+  const my = (p1.y + p2.y) / 2 - 20;
+  ctx.quadraticCurveTo(mx, my, p2.x, p2.y);
+
+  ctx.strokeStyle = highlight
+    ? (isCoping ? '#22c55e' : '#fbbf24')
+    : 'rgba(255,255,255,0.08)';
+  ctx.lineWidth = highlight ? 2.5 : 1;
+  if (isCoping && highlight) ctx.setLineDash([6, 4]);
+  else ctx.setLineDash([]);
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  // Arrow head
+  if (highlight) {
+    const angle = Math.atan2(p2.y - my, p2.x - mx);
+    ctx.beginPath();
+    ctx.moveTo(p2.x, p2.y);
+    ctx.lineTo(p2.x - 10 * Math.cos(angle - 0.3), p2.y - 10 * Math.sin(angle - 0.3));
+    ctx.lineTo(p2.x - 10 * Math.cos(angle + 0.3), p2.y - 10 * Math.sin(angle + 0.3));
+    ctx.closePath();
+    ctx.fillStyle = isCoping ? '#22c55e' : '#fbbf24';
+    ctx.fill();
+  }
+}
+
+function drawNode(node, highlight, isSelected) {
+  const pos = getNodePos(node);
+  const r = isSelected ? 28 : highlight ? 24 : 20;
+  const col = colors[node.type];
+
+  // Glow
+  if (highlight || isSelected) {
+    ctx.beginPath();
+    ctx.arc(pos.x, pos.y, r + 8, 0, Math.PI * 2);
+    const grad = ctx.createRadialGradient(pos.x, pos.y, r, pos.x, pos.y, r + 8);
+    grad.addColorStop(0, col + '40');
+    grad.addColorStop(1, 'transparent');
+    ctx.fillStyle = grad;
+    ctx.fill();
+  }
+
+  // Circle
+  ctx.beginPath();
+  ctx.arc(pos.x, pos.y, r, 0, Math.PI * 2);
+  ctx.fillStyle = highlight || isSelected ? col : col + '60';
+  ctx.fill();
+  ctx.strokeStyle = '#1a1a2e';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+
+  // Label
+  ctx.fillStyle = highlight || isSelected ? '#fff' : 'rgba(255,255,255,0.6)';
+  ctx.font = (highlight || isSelected) ? 'bold 11px Segoe UI, sans-serif' : '10px Segoe UI, sans-serif';
+  ctx.textAlign = 'center';
+
+  const words = node.label.split(' ');
+  let lines = [];
+  let current = '';
+  words.forEach(w => {
+    if ((current + ' ' + w).length > 16) { lines.push(current); current = w; }
+    else current = current ? current + ' ' + w : w;
+  });
+  if (current) lines.push(current);
+
+  const lineH = 13;
+  const startY = pos.y + r + 14;
+  lines.forEach((line, i) => {
+    ctx.fillText(line, pos.x, startY + i * lineH);
+  });
+}
+
+function getConnected(nodeId) {
+  const connected = new Set([nodeId]);
+  edges.forEach(([from, to]) => {
+    if (from === nodeId) connected.add(to);
+    if (to === nodeId) connected.add(from);
+  });
+  return connected;
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  const activeId = selectedNode || hoveredNode;
+  const connected = activeId ? getConnected(activeId) : null;
+
+  // Draw edges
+  edges.forEach(([fromId, toId]) => {
+    const from = nodes.find(n => n.id === fromId);
+    const to = nodes.find(n => n.id === toId);
+    if (from && to) {
+      const hl = connected && (connected.has(fromId) && connected.has(toId));
+      drawEdge(from, to, hl);
+    }
+  });
+
+  // Draw nodes
+  nodes.forEach(node => {
+    const hl = connected ? connected.has(node.id) : false;
+    const sel = node.id === activeId;
+    drawNode(node, hl, sel);
+  });
+}
+
+function getNodeAt(mx, my) {
+  for (let i = nodes.length - 1; i >= 0; i--) {
+    const pos = getNodePos(nodes[i]);
+    const dx = mx - pos.x;
+    const dy = my - pos.y;
+    if (dx * dx + dy * dy < 28 * 28) return nodes[i];
+  }
+  return null;
+}
+
+canvas.addEventListener('mousemove', (e) => {
+  const rect = canvas.getBoundingClientRect();
+  const node = getNodeAt(e.clientX - rect.left, e.clientY - rect.top);
+  hoveredNode = node ? node.id : null;
+  canvas.style.cursor = node ? 'pointer' : 'default';
+
+  if (node && !selectedNode) {
+    const connected = getConnected(node.id);
+    const connNodes = nodes.filter(n => connected.has(n.id) && n.id !== node.id);
+    const upstream = connNodes.filter(n => edges.some(([f, t]) => f === n.id && t === node.id));
+    const downstream = connNodes.filter(n => edges.some(([f, t]) => f === node.id && t === n.id));
+    let msg = `<strong>${node.label}</strong> (${node.type})`;
+    if (upstream.length) msg += ` — upstream: ${upstream.map(n => n.label).join(', ')}`;
+    if (downstream.length) msg += ` — downstream: ${downstream.map(n => n.label).join(', ')}`;
+    info.innerHTML = msg;
+  } else if (!selectedNode) {
+    info.innerHTML = scenarios[currentScenario].info;
+  }
+  draw();
+});
+
+canvas.addEventListener('click', (e) => {
+  const rect = canvas.getBoundingClientRect();
+  const node = getNodeAt(e.clientX - rect.left, e.clientY - rect.top);
+  if (node) {
+    selectedNode = selectedNode === node.id ? null : node.id;
+    if (selectedNode) {
+      const connected = getConnected(node.id);
+      const connNodes = nodes.filter(n => connected.has(n.id) && n.id !== node.id);
+      const upstream = connNodes.filter(n => edges.some(([f, t]) => f === n.id && t === node.id));
+      const downstream = connNodes.filter(n => edges.some(([f, t]) => f === node.id && t === n.id));
+      let msg = `Selected: <strong>${node.label}</strong> (${node.type})`;
+      if (upstream.length) msg += `<br>Upstream: ${upstream.map(n => `<em>${n.label}</em>`).join(', ')}`;
+      if (downstream.length) msg += `<br>Downstream: ${downstream.map(n => `<em>${n.label}</em>`).join(', ')}`;
+      info.innerHTML = msg;
+    } else {
+      info.innerHTML = scenarios[currentScenario].info;
+    }
+  } else {
+    selectedNode = null;
+    info.innerHTML = scenarios[currentScenario].info;
+  }
+  draw();
+});
+
+let currentScenario = 'morning';
+
+function showScenario(name) {
+  currentScenario = name;
+  selectedNode = null;
+  hoveredNode = null;
+  const s = scenarios[name];
+  nodes = s.nodes;
+  edges = s.edges;
+  info.innerHTML = s.info;
+
+  document.querySelectorAll('.graph-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.textContent.toLowerCase().includes(name === 'rsd' ? 'rejection' : name));
+  });
+  draw();
+}
+
+window.addEventListener('resize', () => { resizeCanvas(); draw(); });
+resizeCanvas();
+showScenario('morning');
+</script>
+
+</body>
+</html>
